@@ -237,7 +237,7 @@ a:hover, a:active, a:focus {
 #preloader:before,
 #preloader:after {
   content: "";
-  background-color: var(--color-secondary);
+  background-color: #d48a3b;
   position: absolute;
   inset: 0;
   width: 50%;
