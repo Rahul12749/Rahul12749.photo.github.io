@@ -2,23 +2,13 @@
 include('connection.php');
 
 if(isset($_POST['submit'])){
-    $portfolio_i = $_POST['portfolio_id'];
-    $imageCnt = count($_FILES['image']['name']);
-    for ($i=0; $i < $imageCnt ; $i++) { 
-        $imageName =  $_FILES['image']['name'][$i];
-        $ext  = pathinfo($imageName, PATHINFO_EXTENSION);
-        $imageName = uniqid().'.'.$ext;
-        $imageTempName = $_FILES['image']['tmp_name'][$i];
-        $targetPath = "../upload/".$imageName;
-        if(move_uploaded_file($imageTempName, $targetPath)){
-            $sql = "INSERT INTO images( portfolio_id,image) VALUES('$portfolio_i','$imageName')";
-            $result = mysqli_query($conn,$sql);
-        }
+    $ylink = $_POST['ylink'];
+            $sql = "INSERT INTO youtube(ylink) VALUES('$ylink')";
+            $resulte = mysqli_query($conn,$sql);
     }
-    if($result){
-        header('location:index.php?msg=ins');
+    if(isset($resulte)){
+        header('location:youtube.php?msg=ins');
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +18,7 @@ if(isset($_POST['submit'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
     <title>CamLens</title>
 </head>
 <body>
@@ -55,26 +46,11 @@ if(isset($_POST['submit'])){
     ?>
    <div class="container">
         <div class="row">
-            <form class="row g-3 col-lg-10" action="index.php" method="post" enctype="multipart/form-data">
+            <form class="row g-3 col-lg-10" action="youtube.php" method="post" enctype="multipart/form-data">
+                
                 <div class="col-md-6">
-                    <label class="form-label">Name</label>
-                    <select id="inputState" name="portfolio_id" class="form-select">   
-                            <?php 
-                                $sql = "SELECT name FROM portfolio";
-                                $result = mysqli_query($conn,$sql);
-                                    if(mysqli_num_rows($result)>0){
-                                        while($fetch = mysqli_fetch_assoc($result)){
-                            ?>
-                        <option value="<?php echo $fetch['name'];?>"><?php echo $fetch['name'];?></option>
-                        <?php
-                                }
-                            }
-                        ?>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">File</label>
-                    <input type="file" name="image[]" class="form-control" multiple id=""><br>
+                    <label class="form-label">Youtube Link</label>
+                    <input type="text" name="ylink" class="form-control" multiple id=""><br>
                 </div>
                 <div class="col-md-6">
                     <button type="submit" name="submit" value="upload" class="btn btn-primary">Submit</button>
@@ -87,20 +63,22 @@ if(isset($_POST['submit'])){
             <table class="table ">
                 <thead>
                     <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Image</th>
+                    <th scope="col">Youtube</th>
+                    <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                             <?php 
-                                    $sql = "SELECT * FROM images ORDER BY portfolio_id";
+                                    $sql = "SELECT * FROM youtube";
                                     $result = mysqli_query($conn,$sql);
                             if(mysqli_num_rows($result)>0){
                                 while($fetch = mysqli_fetch_assoc($result)){
                             ?>
-                        <td> <h1><?php echo $fetch['portfolio_id']?></h1></td>
-                        <td> <img src="../upload/<?php echo $fetch['image'];?>" width="100" height="100"></td>  
+                        <td>
+                        <?php echo $fetch['ylink'];?>
+                        </td>
+                        <td><a href="delete.php?id=<?php echo $fetch['id']; ?>" class="fa fa-trash"></a></td>
                     </tr>
                         <?php
                                 }

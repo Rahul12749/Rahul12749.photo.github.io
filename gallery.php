@@ -71,9 +71,16 @@
     <div class="page-header d-flex align-items-center">
       <div class="container position-relative">
         <div class="row d-flex justify-content-center">
-          <div class="col-lg-6 text-center">
-            <h2>Jahnavi & Rohit</h2>
-          </div>
+            <?php 
+                      if(isset($_GET['name'])){
+                            $name = $_GET['name'];
+            ?>
+                          <div class="col-lg-6 text-center">
+                            <h2><?php echo $name;?></h2>
+                          </div>
+            <?php
+                      }
+            ?>   
         </div>
       </div>
     </div><!-- End Page Header -->
@@ -81,6 +88,30 @@
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
       <div class="container-fluid">
+
+        <div class="row gy-4 justify-content-center">
+          
+              <?php 
+              
+        if(isset($_GET['name'])){
+                      $name = $_GET['name'];
+                      $sql = "SELECT * FROM videos WHERE `vportfolio_id` = '$name'";
+                      $result = mysqli_query($conn,$sql);
+              if(mysqli_num_rows($result)>0){
+                  while($fetch = mysqli_fetch_assoc($result)){
+              ?>
+              <div class="col-xl-3 col-lg-4 col-md-6">
+                              <video controls="" autoplay="" loop="" muted width="200px" height="200px">
+                                <source src="./upload/<?php echo $fetch['videos'];?>" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                      </div>
+                  <?php
+                  }
+              }
+            } ?> 
+            <!-- End Gallery Item -->
+        </div>
 
         <div class="row gy-4 justify-content-center">
           

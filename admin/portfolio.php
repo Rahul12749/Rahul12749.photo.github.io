@@ -22,9 +22,26 @@ if(isset($_POST['submite'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <title>Document</title>
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Camlens</title>
 </head>
 <body>
+    <div class="container">
+        <div class="row mt-5">
+            <table class="table ">
+                <tbody>
+                    <tr>
+                        <th><a href="index.php">Gallery</a></th>
+                        <th><a href="portfolio.php">Portfolio</a></th>
+                        <th><a href="code.php">Videos</a></th>
+                        <th><a href="youtube.php">Youtube</a></th>
+                    </tr>
+                       
+                </tbody>
+            </table>
+        </div>
+</div>
     <?php
         if(isset($_GET['msg']) AND $_GET['msg'] == 'ins'){
             echo 'Uploaded success';
@@ -57,13 +74,15 @@ if(isset($_POST['submite'])){
                 <thead>
                     <tr>
                     <th scope="col">Id</th>
+                    <th scope="col">Location</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                             <?php 
-                                    $sql = "SELECT * FROM portfolio";
+                                    $sql = "SELECT * FROM portfolio ORDER BY name";
                                     $result = mysqli_query($conn,$sql);
                             if(mysqli_num_rows($result)>0){
                                 while($fetch = mysqli_fetch_assoc($result)){
@@ -71,6 +90,7 @@ if(isset($_POST['submite'])){
                         <td> <h1><?php echo $fetch['name'];?></h1></td>
                         <td> <h1><?php echo $fetch['location'];?></h1></td>
                         <td> <img src="../upload/<?php echo $fetch['image'];?>" width="100" height="100"></td>
+                        <td> <a href="delete.php?id=<?php echo $fetch['id']; ?>" class="fa fa-trash"></a> </td>
                     </tr>
                             <?php
                                     }
