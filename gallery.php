@@ -127,7 +127,7 @@
               ?>
               <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="gallery-item h-100">
-                  <img src="upload/<?php echo $fetch['image'];?>" class="img-fluid" alt="">
+                  <img src="./upload/<?php echo $fetch['image'];?>" class="img-fluid" alt="">
                 </div>
               </div>
                   <?php

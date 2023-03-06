@@ -34,7 +34,7 @@ if(isset($_POST['submite'])){
                     <tr>
                         <th><a href="index.php">Gallery</a></th>
                         <th><a href="portfolio.php">Portfolio</a></th>
-                        <th><a href="code.php">Videos</a></th>
+                        <th><a href="videos.php">Videos</a></th>
                         <th><a href="youtube.php">Youtube</a></th>
                     </tr>
                        
@@ -87,8 +87,8 @@ if(isset($_POST['submite'])){
                             if(mysqli_num_rows($result)>0){
                                 while($fetch = mysqli_fetch_assoc($result)){
                             ?>
-                        <td> <h1><?php echo $fetch['name'];?></h1></td>
-                        <td> <h1><?php echo $fetch['location'];?></h1></td>
+                        <td> <h3><?php echo $fetch['name'];?></h3></td>
+                        <td> <h3><?php echo $fetch['location'];?></h3></td>
                         <td> <img src="../upload/<?php echo $fetch['image'];?>" width="100" height="100"></td>
                         <td> <a href="delete.php?id=<?php echo $fetch['id']; ?>" class="fa fa-trash"></a> </td>
                     </tr>

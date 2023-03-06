@@ -29,7 +29,7 @@ if(isset($_POST['submit'])){
                     <tr>
                         <th><a href="index.php">Gallery</a></th>
                         <th><a href="portfolio.php">Portfolio</a></th>
-                        <th><a href="code.php">Videos</a></th>
+                        <th><a href="videos.php">Videos</a></th>
                         <th><a href="youtube.php">Youtube</a></th>
                     </tr>
                        
@@ -78,7 +78,7 @@ if(isset($_POST['submit'])){
                         <td>
                         <?php echo $fetch['ylink'];?>
                         </td>
-                        <td><a href="delete.php?id=<?php echo $fetch['id']; ?>" class="fa fa-trash"></a></td>
+                        <td><a href="ydelete.php?id=<?php echo $fetch['id']; ?>" class="fa fa-trash"></a></td>
                     </tr>
                         <?php
                                 }

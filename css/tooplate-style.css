@@ -65,7 +65,7 @@ p {
 
 @font-face {
   font-family: 'allura';
-  src: url(../../fonts/Allura-Regular.woff2);
+  src: url(../assets/fonts/Allura-Regular.woff2);
   font-style: normal;
 }
 

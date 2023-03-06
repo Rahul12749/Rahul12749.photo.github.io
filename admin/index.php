@@ -3,6 +3,7 @@ include('connection.php');
 
 if(isset($_POST['submit'])){
     $portfolio_i = $_POST['portfolio_id'];
+    $pid = $_POST['p_id'];
     $imageCnt = count($_FILES['image']['name']);
     for ($i=0; $i < $imageCnt ; $i++) { 
         $imageName =  $_FILES['image']['name'][$i];
@@ -11,7 +12,7 @@ if(isset($_POST['submit'])){
         $imageTempName = $_FILES['image']['tmp_name'][$i];
         $targetPath = "../upload/".$imageName;
         if(move_uploaded_file($imageTempName, $targetPath)){
-            $sql = "INSERT INTO images( portfolio_id,image) VALUES('$portfolio_i','$imageName')";
+            $sql = "INSERT INTO images( p_id,portfolio_id,image) VALUES('$pid','$portfolio_i','$imageName')";
             $result = mysqli_query($conn,$sql);
         }
     }
@@ -38,7 +39,7 @@ if(isset($_POST['submit'])){
                     <tr>
                         <th><a href="index.php">Gallery</a></th>
                         <th><a href="portfolio.php">Portfolio</a></th>
-                        <th><a href="code.php">Videos</a></th>
+                        <th><a href="videos.php">Videos</a></th>
                         <th><a href="youtube.php">Youtube</a></th>
                     </tr>
                        
@@ -60,16 +61,16 @@ if(isset($_POST['submit'])){
                     <label class="form-label">Name</label>
                     <select id="inputState" name="portfolio_id" class="form-select">   
                             <?php 
-                                $sql = "SELECT name FROM portfolio";
+                                $sql = "SELECT * FROM portfolio";
                                 $result = mysqli_query($conn,$sql);
                                     if(mysqli_num_rows($result)>0){
                                         while($fetch = mysqli_fetch_assoc($result)){
                             ?>
                         <option value="<?php echo $fetch['name'];?>"><?php echo $fetch['name'];?></option>
-                        <?php
+                    <?php
                                 }
                             }
-                        ?>
+                            ?>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -99,7 +100,7 @@ if(isset($_POST['submit'])){
                             if(mysqli_num_rows($result)>0){
                                 while($fetch = mysqli_fetch_assoc($result)){
                             ?>
-                        <td> <h1><?php echo $fetch['portfolio_id']?></h1></td>
+                        <td> <h3><?php echo $fetch['portfolio_id']?></h3></td>
                         <td> <img src="../upload/<?php echo $fetch['image'];?>" width="100" height="100"></td>  
                     </tr>
                         <?php
